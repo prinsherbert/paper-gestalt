@@ -30,6 +30,32 @@ Pre-trained weight for bad-to-good paper generator [[link]](http://filebox.ece.v
 ## Latent space interpolation of accepted CVPR/ICCV papers
 [[link]](https://www.youtube.com/watch?v=yQLsZLf02yg)
 
-## (To-Do) Instructions for running the pre-trained models on your own papers.
+## Instructions for running the pre-trained models on your own papers.
 
-Stay tuned! 
+**These instructions are reversed engineered, and hence not from the original authors.**
+
+**TODO:** include preprocessing starting from a pdf
+**TODO:** do inference
+
+The pre-trained model runs as `resnet18` in pytorch and require pypi's `torch` and `torchvision`. You also need to download the pre-trained weights.
+
+    # Install torch and torchvision
+    !pip3 install torch torchvision
+    
+    # download weights
+    !wget http://filebox.ece.vt.edu/~jbhuang/project/gestalt/PaperNet.pth
+ 
+Load the model using the downloaded `PaperNet.pth` file.
+
+    import torch
+    from torchvision.models import resnet18
+
+    papernet = resnet18(num_classes=2)
+    parameters = torch.load('PaperNet.pth')
+    papernet.load_state_dict(parameters)
+
+For accepted vs. rejected classification use `papernet.forward`
+
+   papernet.forward # TODO: provide proper arguments
+
+Stay tuned, not finished! 
